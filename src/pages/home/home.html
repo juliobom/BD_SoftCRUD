@@ -1,14 +1,215 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-
+<!doctype html>
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BD_SoftCRUD</title>   
-   
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cadastro de usuários</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 32px 16px;
+      background: #f1f5f9;
+      color: #1e293b;
+      font-family: system-ui, sans-serif;
+    }
+
+    main {
+      max-width: 980px;
+      margin: auto;
+    }
+
+    h1 {
+      margin-bottom: 6px;
+    }
+
+    .subtitulo {
+      margin-top: 0;
+      margin-bottom: 24px;
+      color: #64748b;
+    }
+
+    .card {
+      margin-bottom: 20px;
+      padding: 20px;
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+    }
+
+    form {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    label {
+      display: grid;
+      gap: 6px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    input,
+    select,
+    button {
+      padding: 10px 12px;
+      border-radius: 8px;
+      font: inherit;
+    }
+
+    input,
+    select {
+      width: 100%;
+      border: 1px solid #cbd5e1;
+      background: white;
+    }
+
+    button {
+      border: 0;
+      background: #2563eb;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    button.secundario {
+      background: #64748b;
+    }
+
+    button.excluir {
+      background: #dc2626;
+    }
+
+    .acoes {
+      display: flex;
+      align-items: end;
+      gap: 8px;
+    }
+
+    .tabela-container {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      white-space: nowrap;
+    }
+
+    th,
+    td {
+      padding: 11px 10px;
+      border-bottom: 1px solid #e2e8f0;
+      text-align: left;
+    }
+
+    th {
+      color: #475569;
+      font-size: 13px;
+    }
+
+    .acoes-linha {
+      display: flex;
+      gap: 6px;
+    }
+
+    .acoes-linha button {
+      padding: 7px 10px;
+      font-size: 13px;
+    }
+
+    #mensagem {
+      min-height: 22px;
+      margin-bottom: 0;
+    }
+
+    @media (max-width: 600px) {
+      form {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
 
 <body>
-</body>
+  <main>
+    <h1>Usuários</h1>
+    <p class="subtitulo">Cadastre, consulte, altere ou exclua usuários.</p>
 
+    <section class="card">
+      <h2 id="titulo-formulario">Novo usuário</h2>
+
+      <form id="formUser">
+        <label>
+          Nome
+          <input  name="formnome" maxlength="50" required>
+        </label>
+
+        <label>
+          Idade
+          <input  name="formidade" type="number" min="0" step="1">
+        </label>
+
+        <label>
+          Cargo
+          <input  name="formcargo" maxlength="50" required>
+        </label>
+
+        <label>
+          Status da conta
+          <select  name="formstatus">
+            <option value="ativo">Ativo</option>
+            <option value="inativo">Inativo</option>
+          </select>
+        </label>
+
+        <div class="acoes">
+          <button type="submit">Criar usuário</button>
+          <button
+            id="botao-cancelar"
+            class="secundario"
+            type="button"
+            hidden
+          >
+            Cancelar edição
+          </button>
+        </div>
+      </form>
+
+      <p id="mensagem" role="status" aria-live="polite"></p>
+    </section>
+
+    <section class="card">
+      <div class="acoes" style="justify-content: space-between; margin-bottom: 12px">
+        <h2 style="margin: 0">Lista de usuários</h2>
+        <button id="botao-atualizar" class="secundario" type="button">
+          Atualizar lista
+        </button>
+      </div>
+
+      <div class="tabela-container">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nome</th>
+              <th>Idade</th>
+              <th>Cargo</th>
+              <th>Status</th>
+              <th>Criado em</th>
+              <th>Ações</th>
+            </tr> 
+          </thead>
+          <tbody id="lista"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+  <script type="module" src="../canal.js"></script>
+</body>
 </html>

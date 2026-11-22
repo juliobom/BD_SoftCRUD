@@ -17,3 +17,15 @@ CREATE TABLE equipe (
     data_criacao TIMESTAMPTZ NOT NULL DEFAULT now(
 );
 
+CREATE TABLE fato (
+
+    id_fato SERIAL PRIMARY KEY,
+    descricao VARCHAR(50) NOT NULL,
+    data_ocorrencia TIMESTAMPTZ NOT NULL DEFAULT now(),
+    data_registro TIMESTAMPTZ NOT NULL DEFAULT now(),
+    contexto VARCHAR(100) NOT NULL,
+    fonte_verificacao VARCHAR(100) NOT NULL
+
+
+)
+
