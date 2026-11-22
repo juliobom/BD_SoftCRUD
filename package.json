@@ -1,0 +1,26 @@
+{
+  "name": "bd_softcrud",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/juliobom/BD_SoftCRUD.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/juliobom/BD_SoftCRUD/issues"
+  },
+  "homepage": "https://github.com/juliobom/BD_SoftCRUD#readme",
+  "dependencies": {
+    "dotenv": "^18.0.10",
+    "pg": "^8.23.1"
+  }
+}
