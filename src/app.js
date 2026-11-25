@@ -1,42 +1,36 @@
-import {BuscarUser} from './db/table.js'
-import {CriarUser} from './db/table.js'
+import 'dotenv/config'
+import { fileURLToPath } from 'url'
 import express from 'express'
 import cors from 'cors'
-//const express = require('express');
+import { criarTabelas, explicarErroDeConexao } from './db/tabelas.js'
+import equipes from './routes/equipes.js'
+import colaboradores from './routes/colaboradores.js'
+import fatos from './routes/fatos.js'
+import feedbacks from './routes/feedbacks.js'
+import acoes from './routes/acoes.js'
+import relatorios from './routes/relatorios.js'
 
 const app = express()
-const port = 3000
+const porta = Number(process.env.PORT) || 3000
 
 app.use(cors())
-app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
+app.use(express.static(fileURLToPath(new URL('../frontend', import.meta.url))))
 
+app.use('/api/equipes', equipes)
+app.use('/api/colaboradores', colaboradores)
+app.use('/api/fatos', fatos)
+app.use('/api/feedbacks', feedbacks)
+app.use('/api/acoes', acoes)
+app.use('/api/relatorios', relatorios)
 
-app.get('/api/usuarios', (req,res) =>{
+try {
+  await criarTabelas()
+} catch (erro) {
+  console.error(`Não foi possível preparar o banco: ${explicarErroDeConexao(erro)}`)
+  process.exit(1)
+}
 
-    
-    
-
+app.listen(porta, () => {
+  console.log(`Banco "${process.env.DB_NAME}" pronto. Servidor rodando em http://localhost:${porta}`)
 })
-
-app.post('/api/usuarios', async (req,res) => {
-    
-    const user = req.body
-    console.log(user)
-    try {
-        const usuariocriado = await CriarUser(user)
-        res.status(201).json(usuariocriado)
-    } catch (erro) {
-        console.error(erro)
-        res.status(500).json({ erro: 'erro ao criar usuario'})
-    }
-
-})
-
-
-app.listen(port, () => {
-
-    console.log(`servidor rodando na porta ${port}`)
-})
-
-

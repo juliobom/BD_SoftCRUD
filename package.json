@@ -2,10 +2,12 @@
   "name": "bd_softcrud",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node src/app.js"
+    "start": "node src/app.js",
+    "dev": "node --watch src/app.js",
+    "db:seed": "node src/db/seed.js sql/seed.sql",
+    "db:seed:limpar": "node src/db/seed.js sql/limpar-seed.sql"
   },
   "repository": {
     "type": "git",
@@ -24,5 +26,8 @@
     "dotenv": "^18.0.10",
     "express": "^5.3.0",
     "pg": "^8.23.1"
+  },
+  "engines": {
+    "node": ">=20"
   }
 }
